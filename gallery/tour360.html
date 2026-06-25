@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>360° Virtual Tour | BuildCon Premium Construction</title>
+<meta name="description" content="Take an immersive 360-degree virtual tour of BuildCon's premium construction projects.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+<style>
+.tour-hero{background:linear-gradient(135deg,var(--obsidian) 0%,var(--steel) 100%);padding:7rem 0 4rem;text-align:center;position:relative;overflow:hidden}
+.tour-hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(201,168,76,.1) 0%,transparent 70%);pointer-events:none}
+.tour-hero h1{color:var(--white)}
+.tour-hero p{color:rgba(255,255,255,.65);max-width:600px;margin:0 auto 1.5rem}
+.viewer-360{width:100%;height:520px;position:relative;background:#0B0F1A;border-radius:var(--br-lg);overflow:hidden;border:1px solid rgba(201,168,76,.2);box-shadow:var(--shadow-xl)}
+@media(max-width:768px){.viewer-360{height:320px}}
+.viewer-360 canvas{display:block;width:100%!important;height:100%!important;cursor:grab}
+.viewer-360 canvas:active{cursor:grabbing}
+.viewer-ui{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.65rem;z-index:10}
+.viewer-btn{width:44px;height:44px;border-radius:50%;background:rgba(11,15,26,.75);backdrop-filter:blur(8px);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-size:1rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all var(--transition-fast)}
+.viewer-btn:hover{background:var(--gold);color:var(--obsidian)}
+.viewer-badge{position:absolute;top:1rem;left:1rem;background:rgba(11,15,26,.8);backdrop-filter:blur(8px);border:1px solid rgba(201,168,76,.3);color:var(--gold);font-family:var(--font-ui);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.4rem 1rem;border-radius:var(--br-full);z-index:10;display:flex;align-items:center;gap:.5rem}
+.viewer-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--gold);animation:gold-pulse 2s infinite}
+.scene-selector{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;justify-content:center}
+.scene-btn{font-family:var(--font-ui);font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.65rem 1.5rem;border-radius:var(--br-full);border:2px solid var(--border-color);background:var(--bg-secondary);color:var(--text-muted);cursor:pointer;transition:all var(--transition-fast);display:flex;align-items:center;gap:.5rem}
+.scene-btn:hover{border-color:var(--gold);color:var(--gold)}
+.scene-btn.active{background:linear-gradient(135deg,var(--gold-light),var(--gold));border-color:var(--gold);color:var(--obsidian)}
+.hotspot{position:absolute;z-index:5;cursor:pointer}
+.hotspot-dot{width:32px;height:32px;background:linear-gradient(135deg,var(--gold-light),var(--gold));border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--obsidian);font-size:.8rem;animation:gold-pulse 2.5s infinite;border:2px solid var(--white);box-shadow:var(--shadow-gold)}
+.hotspot-label{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);background:rgba(11,15,26,.9);backdrop-filter:blur(8px);color:var(--white);font-family:var(--font-ui);font-size:.72rem;font-weight:700;white-space:nowrap;padding:.4rem .85rem;border-radius:var(--br-full);border:1px solid rgba(201,168,76,.3);opacity:0;pointer-events:none;transition:opacity var(--transition-fast)}
+.hotspot:hover .hotspot-label{opacity:1}
+.tour-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:3rem}
+@media(min-width:768px){.tour-grid{grid-template-columns:repeat(3,1fr)}}
+.tour-thumb{border-radius:var(--br-md);overflow:hidden;position:relative;aspect-ratio:16/10;cursor:pointer;box-shadow:var(--shadow-md)}
+.tour-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease-snap)}
+.tour-thumb:hover img{transform:scale(1.07)}
+.tour-thumb-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,15,26,.85) 0%,transparent 55%);display:flex;align-items:flex-end;padding:1.25rem}
+.tour-thumb-overlay h4{color:var(--white);font-family:var(--font-ui);font-size:.95rem;margin:0}
+.tour-thumb-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(201,168,76,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--obsidian);font-size:1.4rem;opacity:0;transition:opacity var(--transition-fast)}
+.tour-thumb:hover .tour-thumb-icon{opacity:1}
+.drag-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:8;display:flex;flex-direction:column;align-items:center;gap:.75rem;pointer-events:none;animation:fade-in .5s both .5s}
+.drag-hint-icon{width:64px;height:64px;background:rgba(201,168,76,.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--obsidian)}
+.drag-hint p{color:var(--white);font-family:var(--font-ui);font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:rgba(11,15,26,.7);padding:.4rem 1rem;border-radius:var(--br-full)}
+</style>
+</head>
+<body>
+<div id="loading-screen"><div class="spinner"></div><div class="loading-logo">BUILD<span>CON</span></div></div>
+<header>
+<div class="top-bar">
+<div class="container top-bar-content">
+<div class="top-bar-info">
+<a href="tel:+18005550199"><i class="fas fa-phone"></i>+1 (800) 555-0199</a>
+<a href="mailto:info@buildcon.premium"><i class="fas fa-envelope"></i>info@buildcon.premium</a>
+<span><i class="fas fa-clock"></i>Mon – Sat: 8AM – 6PM</span>
+</div>
+<div class="top-bar-socials">
+<a href="#"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-linkedin-in"></i></a>
+<a href="#"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+</div>
+<div class="main-nav">
+<div class="container nav-container">
+<a href="../index.html" class="logo"><i class="fas fa-hard-hat"></i>BUILD<span>CON</span></a>
+<ul class="nav-menu">
+<li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+<li class="nav-item"><a href="../projects/index.html" class="nav-link">Projects</a></li>
+<li class="nav-item"><a href="#" class="nav-link active">Gallery <i class="fas fa-chevron-down"></i></a>
+<div class="dropdown-menu">
+<a href="index.html" class="dropdown-item">Photo Gallery</a>
+<a href="video.html" class="dropdown-item">Video Gallery</a>
+<a href="tour360.html" class="dropdown-item">360° Virtual Tour</a>
+<a href="before-after.html" class="dropdown-item">Before &amp; After</a>
+</div></li>
+<li class="nav-item"><a href="#" class="nav-link">More <i class="fas fa-chevron-down"></i></a>
+<div class="dropdown-menu" style="min-width:220px">
+<a href="../quotation/index.html" class="dropdown-item">Request a Quote</a>
+<a href="../consultation/index.html" class="dropdown-item">Book Consultation</a>
+<a href="../contact.html" class="dropdown-item">Contact Us</a>
+</div></li>
+</ul>
+<div class="nav-actions">
+<button id="theme-toggle" class="theme-toggle"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
+<a href="../quotation/index.html" class="btn btn-primary btn-sm">Get Quote</a>
+</div>
+<div class="hamburger"><span></span><span></span><span></span></div>
+</div>
+</div>
+</header>
+
+<div class="tour-hero">
+<div class="container reveal fade-bottom">
+<span class="section-tag" style="color:var(--gold-light)">Immersive Experience</span>
+<h1>360° Virtual Tour</h1>
+<p>Drag to explore. Click hotspots to discover details. Experience our projects like you are really there.</p>
+<div class="breadcrumbs" style="display:inline-flex"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><a href="#">Gallery</a><i class="fas fa-chevron-right"></i><span>360° Tour</span></div>
+</div>
+</div>
+
+<section class="section-padding">
+<div class="container">
+<div class="scene-selector reveal fade-bottom">
+<button class="scene-btn active" onclick="loadScene(0)" id="sc0"><i class="fas fa-building"></i>Manhattan Tower</button>
+<button class="scene-btn" onclick="loadScene(1)" id="sc1"><i class="fas fa-home"></i>Beverly Hills Villa</button>
+<button class="scene-btn" onclick="loadScene(2)" id="sc2"><i class="fas fa-industry"></i>Euro Warehouse</button>
+<button class="scene-btn" onclick="loadScene(3)" id="sc3"><i class="fas fa-swimming-pool"></i>Dubai Marina</button>
+</div>
+
+<div class="viewer-360 reveal fade-bottom" id="viewer360">
+<div class="viewer-badge"><i class="fas fa-vr-cardboard"></i>360° LIVE VIEW — Drag to Explore</div>
+<div class="drag-hint" id="dragHint">
+<div class="drag-hint-icon"><i class="fas fa-hand-pointer"></i></div>
+<p>Click &amp; Drag to Rotate</p>
+</div>
+<div class="hotspot" id="hotspot1" style="top:40%;left:25%">
+<div class="hotspot-dot"><i class="fas fa-info"></i></div>
+<div class="hotspot-label">Structural Core</div>
+</div>
+<div class="hotspot" id="hotspot2" style="top:35%;left:65%">
+<div class="hotspot-dot"><i class="fas fa-solar-panel"></i></div>
+<div class="hotspot-label">Solar Curtain Wall</div>
+</div>
+<div class="hotspot" id="hotspot3" style="top:60%;left:50%">
+<div class="hotspot-dot"><i class="fas fa-door-open"></i></div>
+<div class="hotspot-label">Main Entrance Lobby</div>
+</div>
+<canvas id="canvas360"></canvas>
+<div class="viewer-ui">
+<button class="viewer-btn" id="btnLeft" title="Rotate Left"><i class="fas fa-chevron-left"></i></button>
+<button class="viewer-btn" id="btnZoomIn" title="Zoom In"><i class="fas fa-plus"></i></button>
+<button class="viewer-btn" id="btnAuto" title="Auto Rotate"><i class="fas fa-sync-alt"></i></button>
+<button class="viewer-btn" id="btnZoomOut" title="Zoom Out"><i class="fas fa-minus"></i></button>
+<button class="viewer-btn" id="btnRight" title="Rotate Right"><i class="fas fa-chevron-right"></i></button>
+</div>
+</div>
+
+<div class="section-header reveal fade-bottom" style="margin-top:5rem">
+<span class="section-tag">More Tours</span>
+<h2 class="section-title">Browse All Virtual Tours</h2>
+<p class="section-desc">Click any thumbnail to launch its 360° immersive experience.</p>
+</div>
+<div class="tour-grid reveal fade-bottom">
+<div class="tour-thumb" onclick="loadScene(0)">
+<img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Manhattan Tower">
+<div class="tour-thumb-overlay"><h4>Manhattan Corporate Tower</h4></div>
+<div class="tour-thumb-icon"><i class="fas fa-vr-cardboard"></i></div>
+</div>
+<div class="tour-thumb" onclick="loadScene(1)">
+<img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80" alt="Beverly Hills Villa">
+<div class="tour-thumb-overlay"><h4>Beverly Hills Luxury Villa</h4></div>
+<div class="tour-thumb-icon"><i class="fas fa-vr-cardboard"></i></div>
+</div>
+<div class="tour-thumb" onclick="loadScene(2)">
+<img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=800&q=80" alt="Euro Warehouse">
+<div class="tour-thumb-overlay"><h4>Euro-Logistics Warehouse</h4></div>
+<div class="tour-thumb-icon"><i class="fas fa-vr-cardboard"></i></div>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container footer-grid">
+<div class="footer-col footer-about">
+<a href="../index.html" class="logo" style="color:var(--white)"><i class="fas fa-hard-hat text-primary"></i>BUILD<span>CON</span></a>
+<p>BuildCon — premier global construction delivering sustainable, top-tier landmarks.</p>
+<div class="footer-socials">
+<a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+<div class="footer-col"><h3>Quick Links</h3><ul class="footer-links">
+<li><a href="../about.html"><i class="fas fa-chevron-right"></i>About Us</a></li>
+<li><a href="../projects/index.html"><i class="fas fa-chevron-right"></i>Projects</a></li>
+<li><a href="index.html"><i class="fas fa-chevron-right"></i>Gallery</a></li>
+<li><a href="../contact.html"><i class="fas fa-chevron-right"></i>Contact</a></li>
+</ul></div>
+<div class="footer-col"><h3>Contact</h3><ul class="footer-contact">
+<li><i class="fas fa-map-marker-alt"></i><span>750 3rd Ave, Manhattan, NY 10017</span></li>
+<li><i class="fas fa-phone-alt"></i><span>+1 (800) 555-0199</span></li>
+<li><i class="fas fa-envelope"></i><span>info@buildcon.premium</span></li>
+</ul></div>
+<div class="footer-col footer-newsletter"><h3>Newsletter</h3>
+<p>Subscribe for engineering insights.</p>
+<form class="newsletter-form"><input type="email" placeholder="Your Email" required><button type="submit"><i class="fas fa-paper-plane"></i></button></form>
+</div>
+</div>
+<div class="container footer-bottom">
+<p>&copy; 2026 BuildCon Premium Construction. All rights reserved.</p>
+<div class="footer-bottom-links"><a href="../privacy-policy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../support.html">Support</a></div>
+</div>
+</footer>
+<div id="back-to-top" class="back-to-top"><i class="fas fa-arrow-up"></i></div>
+<script src="../assets/js/main.js"></script>
+<script>
+// ── 360° Canvas Viewer ────────────────────────────────────────────────────
+const scenes = [
+  { img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2400&q=80', name: 'Manhattan Corporate Tower' },
+  { img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=2400&q=80', name: 'Beverly Hills Luxury Villa' },
+  { img: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=2400&q=80', name: 'Euro-Logistics Warehouse' },
+  { img: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80', name: 'Dubai Marina Residences' }
+];
+
+let currentScene = 0;
+let angleX = 0, angleY = 0;
+let isDragging = false, startX = 0, startY = 0;
+let autoRotate = true;
+let fov = 90;
+let loadedImages = {};
+
+const canvas = document.getElementById('canvas360');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  const v = document.getElementById('viewer360');
+  canvas.width = v.clientWidth;
+  canvas.height = v.clientHeight;
+}
+
+function loadSceneImage(idx, cb) {
+  if (loadedImages[idx]) { cb(loadedImages[idx]); return; }
+  const im = new Image();
+  im.crossOrigin = 'anonymous';
+  im.onload = () => { loadedImages[idx] = im; cb(im); };
+  im.src = scenes[idx].img;
+}
+
+function renderPanorama(srcImg) {
+  if (!srcImg) return;
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  const srcW = srcImg.naturalWidth, srcH = srcImg.naturalHeight;
+  const fovRad = (fov * Math.PI) / 180;
+  const focalLen = (W / 2) / Math.tan(fovRad / 2);
+
+  for (let x = 0; x < W; x++) {
+    const theta = Math.atan2(x - W / 2, focalLen) + (angleX * Math.PI / 180);
+    const srcX = ((theta / (2 * Math.PI)) * srcW + srcW) % srcW;
+    for (let y = 0; y < H; y++) {
+      const phi = Math.atan2(y - H / 2, focalLen) + (angleY * Math.PI / 180 * 0.5);
+      const srcY = Math.max(0, Math.min(srcH - 1, ((phi / Math.PI + 0.5) * srcH)));
+      try {
+        const px = ctx.getImageData(Math.floor(srcX), Math.floor(srcY), 1, 1, { willReadFrequently: true });
+        ctx.fillStyle = `rgb(${px.data[0]},${px.data[1]},${px.data[2]})`;
+      } catch(e) { ctx.fillStyle = '#111'; }
+      ctx.fillRect(x, y, 1, 1);
+    }
+  }
+}
+
+// Fast equirectangular projection using drawImage
+function drawEquirect(img) {
+  if (!img) return;
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  const srcW = img.naturalWidth;
+  const offset = ((angleX / 360) * srcW + srcW) % srcW;
+  const partW = srcW - offset;
+  // Draw two segments to wrap around
+  ctx.drawImage(img, offset, 0, partW, img.naturalHeight, 0, 0, (partW / srcW) * W, H);
+  ctx.drawImage(img, 0, 0, offset, img.naturalHeight, (partW / srcW) * W, 0, (offset / srcW) * W, H);
+}
+
+let animFrame;
+let currentImg = null;
+
+function animate() {
+  if (autoRotate && !isDragging) angleX = (angleX + 0.15) % 360;
+  drawEquirect(currentImg);
+  animFrame = requestAnimationFrame(animate);
+}
+
+function loadScene(idx) {
+  currentScene = idx;
+  document.querySelectorAll('.scene-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  cancelAnimationFrame(animFrame);
+  ctx.fillStyle = '#0B0F1A';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = 'rgba(201,168,76,.8)';
+  ctx.font = 'bold 14px Outfit, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Loading ' + scenes[idx].name + '...', canvas.width / 2, canvas.height / 2);
+  loadSceneImage(idx, img => {
+    currentImg = img;
+    document.getElementById('dragHint').style.display = 'flex';
+    animate();
+  });
+}
+
+// Controls
+canvas.addEventListener('mousedown', e => { isDragging = true; startX = e.clientX; startY = e.clientY; document.getElementById('dragHint').style.display = 'none'; });
+window.addEventListener('mouseup', () => isDragging = false);
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  angleX -= (e.clientX - startX) * 0.3;
+  angleY = Math.max(-45, Math.min(45, angleY - (e.clientY - startY) * 0.15));
+  startX = e.clientX; startY = e.clientY;
+});
+canvas.addEventListener('touchstart', e => { isDragging = true; startX = e.touches[0].clientX; startY = e.touches[0].clientY; document.getElementById('dragHint').style.display = 'none'; e.preventDefault(); }, { passive: false });
+window.addEventListener('touchend', () => isDragging = false);
+window.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  angleX -= (e.touches[0].clientX - startX) * 0.3;
+  angleY = Math.max(-45, Math.min(45, angleY - (e.touches[0].clientY - startY) * 0.15));
+  startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+  e.preventDefault();
+}, { passive: false });
+
+document.getElementById('btnLeft').onclick = () => { angleX -= 10; };
+document.getElementById('btnRight').onclick = () => { angleX += 10; };
+document.getElementById('btnZoomIn').onclick = () => { fov = Math.max(40, fov - 10); };
+document.getElementById('btnZoomOut').onclick = () => { fov = Math.min(120, fov + 10); };
+document.getElementById('btnAuto').onclick = () => { autoRotate = !autoRotate; document.getElementById('btnAuto').style.color = autoRotate ? 'var(--gold)' : ''; };
+
+window.addEventListener('resize', () => { resizeCanvas(); });
+
+resizeCanvas();
+loadScene(0);
+</script>
+</body>
+</html>

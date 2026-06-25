@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Projects | BuildCon Premium Construction</title>
+<meta name="description" content="Explore BuildCon's award-winning residential, commercial and industrial projects worldwide.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+<link rel="stylesheet" href="../assets/css/components.css">
+<link rel="stylesheet" href="../assets/css/pages.css">
+<style>
+.projects-grid{display:grid;grid-template-columns:1fr;gap:2rem;margin-top:3rem}
+@media(min-width:640px){.projects-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1024px){.projects-grid{grid-template-columns:repeat(3,1fr)}}
+.proj-card{background:var(--bg-secondary);border-radius:var(--br-lg);overflow:hidden;border:1px solid var(--border-color);box-shadow:var(--shadow-sm);transition:all var(--transition-normal);position:relative}
+.proj-card:hover{transform:translateY(-10px);box-shadow:var(--shadow-xl);border-color:rgba(201,168,76,.35)}
+.proj-img{position:relative;aspect-ratio:16/10;overflow:hidden}
+.proj-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-snap)}
+.proj-card:hover .proj-img img{transform:scale(1.07)}
+.proj-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,15,26,.85) 0%,transparent 55%);display:flex;align-items:flex-end;padding:1.5rem;opacity:0;transition:opacity var(--transition-normal)}
+.proj-card:hover .proj-overlay{opacity:1}
+.proj-overlay-btns{display:flex;gap:.75rem}
+.proj-badge{position:absolute;top:1rem;left:1rem;font-family:var(--font-ui);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;background:linear-gradient(135deg,var(--gold-light),var(--gold));color:var(--obsidian);padding:.3rem .85rem;border-radius:var(--br-full)}
+.proj-body{padding:1.75rem}
+.proj-tag{font-family:var(--font-ui);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);padding:.2rem .7rem;border-radius:var(--br-full);margin-bottom:.75rem;display:inline-block}
+.proj-title{font-size:1.2rem;margin-bottom:.5rem}
+.proj-desc{font-size:.88rem;color:var(--text-secondary);margin-bottom:1.25rem;line-height:1.7}
+.proj-meta{display:flex;gap:1.25rem;flex-wrap:wrap;padding-top:1rem;border-top:1px solid var(--border-color)}
+.proj-meta-item{display:flex;align-items:center;gap:.4rem;font-family:var(--font-ui);font-size:.75rem;color:var(--text-muted)}
+.proj-meta-item i{color:var(--gold);font-size:.75rem}
+.proj-link{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-ui);font-weight:700;font-size:.8rem;text-transform:uppercase;color:var(--white);letter-spacing:.05em;background:linear-gradient(135deg,var(--gold-light),var(--gold));padding:.55rem 1.25rem;border-radius:var(--br-full)}
+.proj-link2{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-ui);font-weight:700;font-size:.8rem;text-transform:uppercase;color:var(--white);letter-spacing:.05em;background:rgba(255,255,255,.15);backdrop-filter:blur(6px);padding:.55rem 1.25rem;border-radius:var(--br-full);border:1px solid rgba(255,255,255,.3)}
+.stats-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border-color);border-radius:var(--br-lg);overflow:hidden;margin-bottom:4rem}
+@media(min-width:768px){.stats-strip{grid-template-columns:repeat(4,1fr)}}
+.stats-strip-item{background:var(--bg-secondary);text-align:center;padding:2rem 1rem}
+.stats-strip-num{font-family:var(--font-display);font-size:2.5rem;font-weight:800;color:var(--gold);display:block}
+.stats-strip-lbl{font-family:var(--font-ui);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted)}
+</style>
+</head>
+<body>
+<div id="loading-screen"><div class="spinner"></div><div class="loading-logo">BUILD<span>CON</span></div></div>
+<header>
+<div class="top-bar">
+<div class="container top-bar-content">
+<div class="top-bar-info">
+<a href="tel:+18005550199"><i class="fas fa-phone"></i>+1 (800) 555-0199</a>
+<a href="mailto:info@buildcon.premium"><i class="fas fa-envelope"></i>info@buildcon.premium</a>
+<span><i class="fas fa-clock"></i>Mon – Sat: 8AM – 6PM</span>
+</div>
+<div class="top-bar-socials">
+<a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+<a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+<a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+<a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+</div>
+<div class="main-nav">
+<div class="container nav-container">
+<a href="../index.html" class="logo"><i class="fas fa-hard-hat"></i>BUILD<span>CON</span></a>
+<ul class="nav-menu">
+<li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+<li class="nav-item"><a href="#" class="nav-link">About Us <i class="fas fa-chevron-down"></i></a>
+<div class="dropdown-menu">
+<a href="../about.html" class="dropdown-item">Who We Are</a>
+<a href="../team.html" class="dropdown-item">Our Team</a>
+<a href="../mission.html" class="dropdown-item">Our Mission</a>
+<a href="../process.html" class="dropdown-item">Construction Process</a>
+<a href="../testimonials.html" class="dropdown-item">Testimonials</a>
+<a href="../faq.html" class="dropdown-item">FAQs</a>
+</div></li>
+<li class="nav-item"><a href="#" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+<div class="dropdown-menu" style="min-width:280px">
+<a href="../services/residential.html" class="dropdown-item">Residential</a>
+<a href="../services/commercial.html" class="dropdown-item">Commercial</a>
+<a href="../services/industrial.html" class="dropdown-item">Industrial</a>
+<a href="../services/villa.html" class="dropdown-item">Villa Construction</a>
+<a href="../services/interior-design.html" class="dropdown-item">Interior Design</a>
+<a href="../services/renovation.html" class="dropdown-item">Renovation</a>
+<a href="../services/smart-home.html" class="dropdown-item">Smart Home</a>
+</div></li>
+<li class="nav-item"><a href="index.html" class="nav-link active">Projects</a></li>
+<li class="nav-item"><a href="#" class="nav-link">Gallery <i class="fas fa-chevron-down"></i></a>
+<div class="dropdown-menu">
+<a href="../gallery/index.html" class="dropdown-item">Photo Gallery</a>
+<a href="../gallery/video.html" class="dropdown-item">Video Gallery</a>
+<a href="../gallery/tour360.html" class="dropdown-item">360° Virtual Tour</a>
+<a href="../gallery/before-after.html" class="dropdown-item">Before &amp; After</a>
+</div></li>
+<li class="nav-item"><a href="#" class="nav-link">More <i class="fas fa-chevron-down"></i></a>
+<div class="dropdown-menu" style="min-width:240px">
+<a href="../quotation/index.html" class="dropdown-item">Request a Quote</a>
+<a href="../consultation/index.html" class="dropdown-item">Book Consultation</a>
+<a href="../blogs/index.html" class="dropdown-item">Blog &amp; News</a>
+<a href="../careers/index.html" class="dropdown-item">Careers</a>
+<a href="../contact.html" class="dropdown-item">Contact Us</a>
+</div></li>
+</ul>
+<div class="nav-actions">
+<button id="theme-toggle" class="theme-toggle" aria-label="Toggle Theme"><i class="fas fa-moon"></i><i class="fas fa-sun"></i></button>
+<a href="../quotation/index.html" class="btn btn-primary btn-sm">Get Quote</a>
+</div>
+<div class="hamburger"><span></span><span></span><span></span></div>
+</div>
+</div>
+</header>
+
+<section class="page-banner" style="background-image:url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80')">
+<div class="container page-banner-content">
+<span class="section-tag" style="color:var(--gold-light);margin-bottom:1rem;display:block">Our Portfolio</span>
+<h1>Award-Winning Projects</h1>
+<p>850+ landmark structures delivered across residential, commercial &amp; industrial sectors worldwide.</p>
+<div class="breadcrumbs"><a href="../index.html">Home</a><i class="fas fa-chevron-right"></i><span>Projects</span></div>
+</div>
+</section>
+
+<section class="section-padding">
+<div class="container">
+<div class="stats-strip reveal fade-bottom">
+<div class="stats-strip-item"><span class="stat-number stats-strip-num" data-target="850">0</span><span class="stats-strip-lbl">Projects Built</span></div>
+<div class="stats-strip-item"><span class="stat-number stats-strip-num" data-target="15">0</span><span class="stats-strip-lbl">Years Experience</span></div>
+<div class="stats-strip-item"><span class="stat-number stats-strip-num" data-target="28">0</span><span class="stats-strip-lbl">Countries</span></div>
+<div class="stats-strip-item"><span class="stat-number stats-strip-num" data-target="99">0</span><span class="stats-strip-lbl">% Satisfaction</span></div>
+</div>
+
+<div class="gallery-filters reveal fade-bottom">
+<button class="filter-btn active" data-filter="all">All Projects</button>
+<button class="filter-btn" data-filter="residential">Residential</button>
+<button class="filter-btn" data-filter="commercial">Commercial</button>
+<button class="filter-btn" data-filter="industrial">Industrial</button>
+<button class="filter-btn" data-filter="luxury">Luxury Villa</button>
+</div>
+
+<div class="projects-grid" id="projects-grid">
+
+<div class="proj-card reveal fade-bottom" data-cat="commercial">
+<div class="proj-img">
+<span class="proj-badge">Completed</span>
+<img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Manhattan Corporate Tower">
+<div class="proj-overlay">
+<div class="proj-overlay-btns">
+<a href="details.html" class="proj-link"><i class="fas fa-eye"></i>View</a>
+<a href="../gallery/tour360.html" class="proj-link2"><i class="fas fa-vr-cardboard"></i>360°</a>
+</div>
+</div>
+</div>
+<div class="proj-body">
+<span class="proj-tag">Commercial</span>
+<h3 class="proj-title">Manhattan Corporate Tower</h3>
+<p class="proj-desc">45-story commercial tower with solar curtain walls, reinforced concrete structure &amp; premium Grade-A offices.</p>
+<div class="proj-meta">
+<span class="proj-meta-item"><i class="fas fa-map-marker-alt"></i>New York, USA</span>
+<span class="proj-meta-item"><i class="fas fa-ruler-combined"></i>320,000 sqft</span>
+<span class="proj-meta-item"><i class="fas fa-calendar"></i>2024</span>
+</div>
+</div>
+</div>
+
+<div class="proj-card reveal fade-bottom" data-delay="1" data-cat="luxury">
+<div class="proj-img">
+<span class="proj-badge">Completed</span>
+<img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=800&q=80" alt="Beverly Hills Luxury Villa">
+<div class="proj-overlay">
+<div class="proj-overlay-btns">
+<a href="details.html" class="proj-link"><i class="fas fa-eye"></i>View</a>
+<a href="../gallery/tour360.html" class="proj-link2"><i class="fas fa-vr-cardboard"></i>360°</a>
+</div>
+</div>
+</div>
+<div class="proj-body">
+<span class="proj-tag">Luxury Villa</span>
+<h3 class="proj-title">Beverly Hills Luxury Villa</h3>
+<p class="proj-desc">Bespoke estate with glassmorphism facades, infinity pool, custom marble interiors &amp; smart-home integration.</p>
+<div class="proj-meta">
+<span class="proj-meta-item"><i class="fas fa-map-marker-alt"></i>Los Angeles, USA</span>
+<span class="proj-meta-item"><i class="fas fa-ruler-combined"></i>18,500 sqft</span>
+<span class="proj-meta-item"><i class="fas fa-calendar"></i>2024</span>
+</div>
+</div>
+</div>
+
+<div class="proj-card reveal fade-bottom" data-delay="2" data-cat="industrial">
+<div class="proj-img">
+<span class="proj-badge">Completed</span>
+<img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=800&q=80" alt="Euro-Logistics Warehouse">
+<div class="proj-overlay">
+<div class="proj-overlay-btns">
+<a href="details.html" class="proj-link"><i class="fas fa-eye"></i>View</a>
+<a href="../gallery/tour360.html" class="proj-link2"><i class="fas fa-vr-cardboard"></i>360°</a>
+</div>
+</div>
+</div>
+<div class="proj-body">
+<span class="proj-tag">Industrial</span>
+<h3 class="proj-title">Euro-Logistics Warehouse</h3>
+<p class="proj-desc">Heavy industrial cargo facility with prefab modular spans, epoxy flooring &amp; custom dock levelers.</p>
+<div class="proj-meta">
+<span class="proj-meta-item"><i class="fas fa-map-marker-alt"></i>Frankfurt, Germany</span>
+<span class="proj-meta-item"><i class="fas fa-ruler-combined"></i>550,000 sqft</span>
+<span class="proj-meta-item"><i class="fas fa-calendar"></i>2023</span>
+</div>
+</div>
+</div>
+
+<div class="proj-card reveal fade-bottom" data-cat="residential">
+<div class="proj-img">
+<span class="proj-badge" style="background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#fff">In Progress</span>
+<img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="Dubai Marina Residences">
+<div class="proj-overlay">
+<div class="proj-overlay-btns">
+<a href="details.html" class="proj-link"><i class="fas fa-eye"></i>View</a>
+<a href="../gallery/tour360.html" class="proj-link2"><i class="fas fa-vr-cardboard"></i>360°</a>
+</div>
+</div>
+</div>
+<div class="proj-body">
+<span class="proj-tag">Residential</span>
+<h3 class="proj-title">Dubai Marina Residences</h3>
+<p class="proj-desc">72-unit luxury apartment complex with rooftop infinity pool, concierge services &amp; panoramic sea views.</p>
+<div class="proj-meta">
+<span class="proj-meta-item"><i class="fas fa-map-marker-alt"></i>Dubai, UAE</span>
+<span class="proj-meta-item"><i class="fas fa-ruler-combined"></i>240,000 sqft</span>
+<span class="proj-meta-item"><i class="fas fa-calendar"></i>2025</span>
+</div>
+</div>
+</div>
+
+<div class="proj-card reveal fade-bottom" data-delay="1" data-cat="commercial">
+<div class="proj-img">
+<span class="proj-badge">Completed</span>
+<img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" alt="Singapore Tech Campus">
+<div class="proj-overlay">
+<div class="proj-overlay-btns">
+<a href="details.html" class="proj-link"><i class="fas fa-eye"></i>View</a>
+<a href="../gallery/tour360.html" class="proj-link2"><i class="fas fa-vr-cardboard"></i>360°</a>
+</div>
+</div>
+</div>
+<div class="proj-body">
+<span class="proj-tag">Commercial</span>
+<h3 class="proj-title">Singapore Tech Campus</h3>
+<p class="proj-desc">Green-certified corporate campus with biophilic design, solar canopies &amp; advanced HVAC systems.</p>
+<div class="proj-meta">
+<span class="proj-meta-item"><i class="fas fa-map-marker-alt"></i>Singapore</span>
+<span class="proj-meta-item"><i class="fas fa-ruler-combined"></i>420,000 sqft</span>
+<span class="proj-meta-item"><i class="fas fa-calendar"></i>2023</span>
+</div>
+</div>
+</div>
+
+<div class="proj-card reveal fade-bottom" data-delay="2" data-cat="luxury">
+<div class="proj-img">
+<span class="proj-badge">Completed</span>
+<img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80" alt="Monaco Cliffside Estate">
+<div class="proj-overlay">
+<div class="proj-overlay-btns">
+<a href="details.html" class="proj-link"><i class="fas fa-eye"></i>View</a>
+<a href="../gallery/tour360.html" class="proj-link2"><i class="fas fa-vr-cardboard"></i>360°</a>
+</div>
+</div>
+</div>
+<div class="proj-body">
+<span class="proj-tag">Luxury Villa</span>
+<h3 class="proj-title">Monaco Cliffside Estate</h3>
+<p class="proj-desc">Ultra-premium clifftop villa with cantilevered terraces, private helipad &amp; sea-facing panoramic glazing.</p>
+<div class="proj-meta">
+<span class="proj-meta-item"><i class="fas fa-map-marker-alt"></i>Monaco</span>
+<span class="proj-meta-item"><i class="fas fa-ruler-combined"></i>22,000 sqft</span>
+<span class="proj-meta-item"><i class="fas fa-calendar"></i>2024</span>
+</div>
+</div>
+</div>
+
+</div><!-- /projects-grid -->
+</div>
+</section>
+
+<!-- 360 CTA Banner -->
+<section style="background:linear-gradient(135deg,var(--obsidian),var(--steel));padding:5rem 0;position:relative;overflow:hidden">
+<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 70%);pointer-events:none"></div>
+<div class="container text-center reveal fade-bottom">
+<span class="section-tag">Immersive Experience</span>
+<h2 style="color:var(--white);margin-bottom:1rem">Explore Projects in 360°</h2>
+<p style="color:rgba(255,255,255,.65);max-width:540px;margin:0 auto 2.5rem">Walk through our completed builds virtually. Rotate, zoom, and explore every corner before you decide.</p>
+<a href="../gallery/tour360.html" class="btn btn-primary btn-lg"><i class="fas fa-vr-cardboard"></i>Launch 360° Viewer</a>
+</div>
+</section>
+
+<footer>
+<div class="container footer-grid">
+<div class="footer-col footer-about">
+<a href="../index.html" class="logo" style="color:var(--white)"><i class="fas fa-hard-hat text-primary"></i>BUILD<span>CON</span></a>
+<p>BuildCon is a premier global engineering and construction corporation delivering sustainable, top-tier landmarks.</p>
+<div class="footer-socials">
+<a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-twitter"></i></a>
+<a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a>
+</div>
+</div>
+<div class="footer-col"><h3>Quick Links</h3><ul class="footer-links">
+<li><a href="../about.html"><i class="fas fa-chevron-right"></i>About Us</a></li>
+<li><a href="../services/residential.html"><i class="fas fa-chevron-right"></i>Services</a></li>
+<li><a href="index.html"><i class="fas fa-chevron-right"></i>Projects</a></li>
+<li><a href="../careers/index.html"><i class="fas fa-chevron-right"></i>Careers</a></li>
+<li><a href="../contact.html"><i class="fas fa-chevron-right"></i>Contact Us</a></li>
+</ul></div>
+<div class="footer-col"><h3>Contact</h3><ul class="footer-contact">
+<li><i class="fas fa-map-marker-alt"></i><span>750 3rd Ave, Manhattan, NY 10017</span></li>
+<li><i class="fas fa-phone-alt"></i><span>+1 (800) 555-0199</span></li>
+<li><i class="fas fa-envelope"></i><span>info@buildcon.premium</span></li>
+</ul></div>
+<div class="footer-col footer-newsletter"><h3>Newsletter</h3>
+<p>Subscribe for engineering insights &amp; new listings.</p>
+<form class="newsletter-form"><input type="email" placeholder="Your Email" required><button type="submit"><i class="fas fa-paper-plane"></i></button></form>
+</div>
+</div>
+<div class="container footer-bottom">
+<p>&copy; 2026 BuildCon Premium Construction. All rights reserved.</p>
+<div class="footer-bottom-links"><a href="../privacy-policy.html">Privacy Policy</a><a href="../terms.html">Terms</a><a href="../support.html">Support</a></div>
+</div>
+</footer>
+<div id="back-to-top" class="back-to-top"><i class="fas fa-arrow-up"></i></div>
+<div id="lightbox" class="lightbox"><span class="lightbox-close"><i class="fas fa-times"></i></span><img id="lightbox-img" class="lightbox-img" src="" alt=""></div>
+<script src="../assets/js/main.js"></script>
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    const f=btn.dataset.filter;
+    document.querySelectorAll('.proj-card').forEach(c=>{
+      if(f==='all'||c.dataset.cat===f){c.style.display='';setTimeout(()=>{c.style.opacity='1';c.style.transform=''},10)}
+      else{c.style.opacity='0';c.style.transform='scale(0.95)';setTimeout(()=>c.style.display='none',300)}
+    });
+  });
+});
+</script>
+</body>
+</html>

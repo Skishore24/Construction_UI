@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | BuildCon Operations</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+  <div class="auth-container" style="background-color: #081526;">
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="../index.html" class="logo" style="justify-content:center;">
+          <i class="fas fa-hard-hat text-primary"></i> BUILD<span>CON</span> <span style="font-size:0.7rem; background:var(--primary); color:var(--secondary); padding:0.15rem 0.4rem; border-radius:var(--br-sm);">ADMIN</span>
+        </a>
+        <h2>Super-User Portal</h2>
+        <p>Input credential protocols to modify pricing models, leads queues, and employee shift plans.</p>
+      </div>
+      <form action="dashboard.html" method="GET" class="validate-form">
+        <div class="form-group">
+          <label class="form-label" for="adm-email">Admin Login</label>
+          <input type="email" id="adm-email" class="form-input" placeholder="admin@buildcon.premium" required value="admin@buildcon.premium">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="adm-pass">Security Key</label>
+          <input type="password" id="adm-pass" class="form-input" placeholder="••••••••" required value="admin123">
+        </div>
+        <button type="submit" class="btn btn-secondary w-full" style="background-color:#081526; color:#fff; border:none; margin-top:1rem;">Verify Security Key</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

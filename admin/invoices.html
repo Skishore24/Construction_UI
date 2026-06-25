@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoices Ledger Log | BuildCon Admin Panel</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+  <div id="loading-screen">
+    <div class="spinner"></div>
+    <div class="loading-logo">BUILD<span>CON</span></div>
+  </div>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar" style="background-color: #081526;">
+      <div class="sidebar-header">
+        <a href="../index.html" class="logo" style="color: var(--white); font-size: 1.15rem;">
+          <i class="fas fa-hard-hat text-primary"></i> BUILD<span>CON</span> <span style="font-size:0.7rem; background:var(--primary); color:var(--secondary); padding:0.15rem 0.4rem; border-radius:var(--br-sm);">ADMIN</span>
+        </a>
+      </div>
+      <div class="sidebar-menu" style="overflow-y: auto;">
+        <a href="../admin/dashboard.html" class="sidebar-link "><i class="fas fa-chart-line"></i> Dashboard</a>
+<a href="../admin/projects.html" class="sidebar-link "><i class="fas fa-folder-open"></i> Projects</a>
+<a href="../admin/customers.html" class="sidebar-link "><i class="fas fa-users"></i> Customers Log</a>
+<a href="../admin/leads.html" class="sidebar-link "><i class="fas fa-funnel-dollar"></i> Leads & Bids</a>
+<a href="../admin/employees.html" class="sidebar-link "><i class="fas fa-user-tie"></i> Employees & Staff</a>
+<a href="../admin/services.html" class="sidebar-link "><i class="fas fa-cogs"></i> Services Catalog</a>
+<a href="../admin/blogs.html" class="sidebar-link "><i class="fas fa-newspaper"></i> CMS Blogs</a>
+<a href="../admin/gallery.html" class="sidebar-link "><i class="fas fa-images"></i> CMS Gallery</a>
+<a href="../admin/testimonials.html" class="sidebar-link "><i class="fas fa-comments-dollar"></i> Testimonials</a>
+<a href="../admin/faqs.html" class="sidebar-link "><i class="fas fa-question-circle"></i> FAQs Editor</a>
+<a href="../admin/downloads.html" class="sidebar-link "><i class="fas fa-file-download"></i> Downloads Center</a>
+<a href="../admin/materials.html" class="sidebar-link "><i class="fas fa-hammer"></i> Materials List</a>
+<a href="../admin/brands.html" class="sidebar-link "><i class="fas fa-copyright"></i> Partner Brands</a>
+<a href="../admin/vendors.html" class="sidebar-link "><i class="fas fa-store"></i> Registered Vendors</a>
+<a href="../admin/suppliers.html" class="sidebar-link "><i class="fas fa-truck-loading"></i> Suppliers List</a>
+<a href="../admin/invoices.html" class="sidebar-link active"><i class="fas fa-file-invoice"></i> Invoice Log</a>
+<a href="../admin/payments.html" class="sidebar-link "><i class="fas fa-dollar-sign"></i> Payment Records</a>
+<a href="../admin/reports.html" class="sidebar-link "><i class="fas fa-chart-bar"></i> Financial Reports</a>
+<a href="../admin/calendar.html" class="sidebar-link "><i class="fas fa-calendar-alt"></i> Calendar Planner</a>
+<a href="../admin/messages.html" class="sidebar-link "><i class="fas fa-paper-plane"></i> Messages</a>
+<a href="../admin/settings.html" class="sidebar-link "><i class="fas fa-cog"></i> System Settings</a>
+<a href="../admin/profile.html" class="sidebar-link "><i class="fas fa-user-shield"></i> Admin Profile</a>
+      </div>
+      <div class="sidebar-footer">
+        <a href="../index.html" class="sidebar-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
+    </aside>
+
+    <!-- Main Dashboard Area -->
+    <main class="dashboard-main">
+      <nav class="dashboard-nav">
+        <div class="dashboard-title">
+          <h1>Invoices Ledger Log</h1>
+        </div>
+        <div class="dashboard-user">
+          <div class="theme-toggle" id="theme-toggle" style="cursor: pointer; width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; background-color: var(--bg-tertiary);">
+            <i class="fas fa-moon"></i>
+            <i class="fas fa-sun" style="display:none;"></i>
+          </div>
+          <div class="user-avatar" style="background-color: var(--secondary); color: var(--primary);">SA</div>
+          <div>
+            <span style="font-weight:600; display:block; font-size:0.9rem;">Sarah Jenkins</span>
+            <span style="font-size:0.75rem; color:var(--text-secondary);">Super Administrator</span>
+          </div>
+        </div>
+      </nav>
+
+      <div class="dashboard-body">
+        
+      <div class="admin-table-container">
+        <table class="admin-table">
+          <thead>
+            <tr><th>Invoice ID</th><th>Billed Client</th><th>Due Valuation</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>INV-944200</td><td>John Doe</td><td>$300,000</td><td><span class="milestone-status-badge status-completed">Paid</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/main.js"></script>
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>
