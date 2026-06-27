@@ -359,6 +359,12 @@ p {
   border: 1px solid var(--glass-border);
   border-radius: var(--br-md);
   box-shadow: var(--shadow-glass);
+  padding: 3rem 2.5rem;
+}
+@media (max-width: 576px) {
+  .glass-panel {
+    padding: 2rem 1.5rem;
+  }
 }
 .glass-dark {
   background: rgba(11,15,26,0.75);

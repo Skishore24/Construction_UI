@@ -47,30 +47,44 @@
   flex-grow: 1;
 }
 
+/* Global Admin Heading Font Override */
+.dashboard-layout h1, 
+.dashboard-layout h2, 
+.dashboard-layout h3, 
+.dashboard-layout h4, 
+.dashboard-layout h5, 
+.dashboard-layout h6 {
+  font-family: var(--font-ui) !important;
+}
+
 .sidebar-link {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0;
   padding: 0.8rem 1.1rem;
-  border-radius: var(--br-sm);
+  border-radius: var(--br-sm) 0 0 var(--br-sm);
   color: var(--text-muted);
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-weight: 600;
   font-size: 0.88rem;
   transition: all var(--transition-fast);
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  border-right: 3px solid transparent;
 }
 
 .sidebar-link i {
-  width: 18px;
+  width: 20px;
+  min-width: 20px;
+  margin-right: 1rem;
   text-align: center;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .sidebar-link:hover, .sidebar-link.active {
   background-color: var(--secondary-hover);
   color: var(--primary) !important;
+  border-right: 3px solid var(--primary);
 }
 
 .sidebar-footer {
@@ -101,7 +115,7 @@
 .dashboard-title h1 {
   font-size: 1.6rem;
   margin-bottom: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-weight: 800;
   letter-spacing: -0.02em;
 }
@@ -175,11 +189,11 @@
   color: var(--text-muted);
   margin-bottom: 0.5rem;
   letter-spacing: 0.05em;
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
 }
 
 .db-stat-value {
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-size: 1.65rem;
   font-weight: 700;
   color: var(--text-primary);
@@ -217,7 +231,7 @@
 .admin-table th {
   background-color: var(--bg-tertiary);
   color: var(--text-primary);
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.8rem;
@@ -401,7 +415,7 @@
 }
 
 .calendar-day-name {
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-weight: 700;
   font-size: 0.8rem;
   color: var(--text-muted);
@@ -464,5 +478,5 @@
   font-weight: 700;
   margin: 0 auto 1.5rem auto;
   box-shadow: var(--shadow-md);
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
 }

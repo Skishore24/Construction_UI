@@ -602,3 +602,105 @@ footer::before {
 @media (min-width: 768px) {
   .footer-bottom { flex-direction: row; justify-content: space-between; text-align: left; }
 }
+
+/* ── AUTHENTICATION CARDS ─────────────────────────────────────────────────── */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  padding: 1.5rem;
+}
+
+.auth-card {
+  background-color: var(--bg-secondary);
+  border-radius: var(--br-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 440px;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-header h2 {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+  font-size: 0.88rem;
+  margin-bottom: 0;
+  color: var(--text-secondary);
+}
+
+/* ── DOCUMENT & DOWNLOAD CARDS ────────────────────────────────────────────── */
+.doc-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .doc-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.doc-card {
+  background-color: var(--bg-secondary);
+  border-radius: var(--br-sm);
+  border: 1px solid var(--border-color);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: border-color var(--transition-fast);
+}
+
+.doc-card:hover {
+  border-color: var(--primary);
+}
+
+.doc-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--br-sm);
+  background-color: rgba(220, 38, 38, 0.1);
+  color: var(--error);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+}
+
+.doc-info {
+  flex-grow: 1;
+}
+
+.doc-info h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.doc-info span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.doc-download {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  transition: color var(--transition-fast);
+}
+
+.doc-download:hover {
+  color: var(--primary);
+}
+

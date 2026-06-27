@@ -73,32 +73,32 @@
 
       <div class="dashboard-body">
         
-  <div class="db-stats-grid">
+   <div class="db-stats-grid">
     <div class="db-stat-card">
       <div class="db-stat-info">
         <h3>Cumulative Corporate Revenue</h3>
-        <span class="db-stat-value">$4,520,000</span>
+        <span class="db-stat-value" id="stat-revenue">$4,520,000</span>
       </div>
       <div class="db-stat-icon"><i class="fas fa-chart-line"></i></div>
     </div>
     <div class="db-stat-card">
       <div class="db-stat-info">
         <h3>Active Supervising Sites</h3>
-        <span class="db-stat-value">12 Projects</span>
+        <span class="db-stat-value" id="stat-sites">12 Projects</span>
       </div>
       <div class="db-stat-icon" style="background-color:rgba(16, 185, 129, 0.1); color:var(--success);"><i class="fas fa-city"></i></div>
     </div>
     <div class="db-stat-card">
       <div class="db-stat-info">
         <h3>Pending Bidding Leads</h3>
-        <span class="db-stat-value">28 Incoming</span>
+        <span class="db-stat-value" id="stat-leads">28 Incoming</span>
       </div>
       <div class="db-stat-icon" style="background-color:rgba(253, 185, 19, 0.1); color:var(--primary);"><i class="fas fa-funnel-dollar"></i></div>
     </div>
     <div class="db-stat-card">
       <div class="db-stat-info">
         <h3>Active Employees Logged</h3>
-        <span class="db-stat-value">124 Personnel</span>
+        <span class="db-stat-value" id="stat-employees">124 Personnel</span>
       </div>
       <div class="db-stat-icon" style="background-color:rgba(11, 31, 58, 0.1); color:var(--secondary);"><i class="fas fa-users-cog"></i></div>
     </div>
@@ -106,8 +106,14 @@
 
   <div class="admin-chart-card">
     <div class="chart-header">
-      <h3>Corporate Income Growth 2026</h3>
-      <span style="font-weight:600; color:var(--success);"><i class="fas fa-caret-up"></i> +14.2% Monthly Increase</span>
+      <div>
+        <h3 style="margin-bottom: 0.25rem;">Corporate Income Growth</h3>
+        <span style="font-weight:600; color:var(--success); font-size:0.85rem;"><i class="fas fa-caret-up"></i> <span id="chart-growth-percentage">+14.2% Monthly Increase</span></span>
+      </div>
+      <div class="chart-filter-group" style="display:flex; gap:0.25rem; background:rgba(255,255,255,0.05); padding:0.25rem; border-radius:var(--br-sm); border:1px solid var(--border-color);">
+        <button class="filter-btn active" data-filter="monthly" style="font-size:0.75rem; padding:0.35rem 0.85rem; border-radius:var(--br-xs); border:none; background:var(--primary); color:var(--secondary); font-weight:700; cursor:pointer; transition: all var(--transition-fast);">Monthly</button>
+        <button class="filter-btn" data-filter="yearly" style="font-size:0.75rem; padding:0.35rem 0.85rem; border-radius:var(--br-xs); border:none; background:transparent; color:var(--text-muted); font-weight:700; cursor:pointer; transition: all var(--transition-fast);">Yearly</button>
+      </div>
     </div>
     <div class="chart-container-svg">
       <svg class="chart-svg" viewBox="0 0 1000 250">
@@ -115,7 +121,7 @@
         <line x1="0" y1="200" x2="1000" y2="200" stroke="var(--border-color)" stroke-width="1"/>
         <line x1="0" y1="100" x2="1000" y2="100" stroke="var(--border-color)" stroke-dasharray="5 5" stroke-width="1"/>
         <!-- Eased drawing path -->
-        <path class="chart-line" d="M 0,180 Q 200,160 400,120 T 800,60 T 1000,40" fill="none" stroke="var(--primary)" stroke-width="4"/>
+        <path class="chart-line" id="chart-growth-line" d="M 0,180 Q 200,160 400,120 T 800,60 T 1000,40" fill="none" stroke="var(--primary)" stroke-width="4"/>
       </svg>
     </div>
   </div>

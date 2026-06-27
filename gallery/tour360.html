@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
@@ -268,9 +268,36 @@ function drawEquirect(img) {
 let animFrame;
 let currentImg = null;
 
+const hotspotsData = [
+  { elId: 'hotspot1', angle: 90 },
+  { elId: 'hotspot2', angle: 240 },
+  { elId: 'hotspot3', angle: 180 }
+];
+
 function animate() {
   if (autoRotate && !isDragging) angleX = (angleX + 0.15) % 360;
   drawEquirect(currentImg);
+  
+  // Dynamically position hotspots in 3D rotation space
+  const canvasW = canvas.width;
+  hotspotsData.forEach(h => {
+    const el = document.getElementById(h.elId);
+    if (!el) return;
+    
+    let relativeAngle = (h.angle - angleX) % 360;
+    if (relativeAngle < -180) relativeAngle += 360;
+    if (relativeAngle > 180) relativeAngle -= 360;
+    
+    // Within field of view
+    if (Math.abs(relativeAngle) < 65) {
+      const xPos = (canvasW / 2) + (relativeAngle / 65) * (canvasW / 2);
+      el.style.left = `${xPos}px`;
+      el.style.display = 'block';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+  
   animFrame = requestAnimationFrame(animate);
 }
 
