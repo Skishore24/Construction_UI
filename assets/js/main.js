@@ -15,15 +15,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 2. Sticky Header Scroll Effect
-  const header = document.querySelector(".main-nav");
-  if (header) {
-    window.addEventListener("scroll", () => {
+  const headerElement = document.querySelector("header");
+  const mainNav = document.querySelector(".main-nav");
+  if (headerElement && mainNav) {
+    const handleScroll = () => {
       if (window.scrollY > 50) {
-        header.style.padding = "0.75rem 1.5rem";
+        headerElement.classList.add("scrolled");
+        mainNav.style.padding = "0.75rem 1.5rem";
       } else {
-        header.style.padding = "1.25rem 1.5rem";
+        headerElement.classList.remove("scrolled");
+        mainNav.style.padding = "1.25rem 1.5rem";
       }
-    });
+    };
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
   }
 
   // 3. Theme Toggler (Dark / Light Modes)
